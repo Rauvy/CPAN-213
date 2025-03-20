@@ -9,10 +9,16 @@ import Login from "./screens/Login";
 import Dashboard from "./screens/Dashboard";
 import Booking from "./screens/Booking";
 import RoomList from "./screens/RoomList";
+import firestore from '@react-native-firebase/firestore';
+
+// Import screens
+import ParkingList from './screens/ParkingList';
+import AddParking from './screens/AddParking';
+import ParkingDetail from './screens/ParkingDetail';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+const App = () => {
   const headerOptions = ({ navigation }) => ({
     headerStyle: styles.header,
     headerTintColor: "#FFFFFF",
@@ -37,19 +43,41 @@ export default function App() {
       <SafeAreaProvider>
         <StatusBar barStyle="light-content" backgroundColor="#732A00" />
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Group screenOptions={headerOptions}>
-              <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Dashboard" component={Dashboard} />
-              <Stack.Screen name="Booking" component={Booking} />
-              <Stack.Screen name="RoomList" component={RoomList} />
-            </Stack.Group>
+          <Stack.Navigator
+            initialRouteName="ParkingList"
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: '#007AFF',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          >
+            <Stack.Screen
+              name="ParkingList"
+              component={ParkingList}
+              options={{ title: 'Parking List' }}
+            />
+            <Stack.Screen
+              name="AddParking"
+              component={AddParking}
+              options={{ title: 'Add New Parking' }}
+            />
+            <Stack.Screen
+              name="ParkingDetail"
+              component={ParkingDetail}
+              options={{ title: 'Parking Details' }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
     </Provider>
   );
-}
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   header: {
